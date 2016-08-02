@@ -25,8 +25,9 @@
     function add_sold_overlay_after() {
         global $product;
         $text = get_option('sold_overlay_text');
+        $show_overlay = get_option('sold_overlay_show');
 
-        if (! $product->is_in_stock()) {
+        if (! $product->is_in_stock() && $show_overlay) {
             echo '<div class="sold-overlay after"><p class="sold-text">';
                 if($text != '')
                     {echo $text;} 
@@ -36,8 +37,22 @@
         }
     }
 
+    function add_sold_marker(){
+        global $product;
+        $show_marker = get_option('sold_overlay_marker');
+        $marker_text = get_option('sold_overlay_text');
+        if($marker_text == ''){ $marker_text = 'Sold Out';}
+
+        if($show_marker && !$product->is_in_stock()){
+            echo '<div class="sold-marker">';
+            echo $marker_text;
+            echo '</div>';
+        };
+    }
+
     add_action( 'woocommerce_before_shop_loop_item_title','add_sold_overlay_before',5);
     add_action( 'woocommerce_before_shop_loop_item_title','add_sold_overlay_after',12);
+    add_action( 'woocommerce_after_shop_loop_item_title','add_sold_marker',10);
     
     function myplugin_scripts() {
     wp_register_style( 'sold-overlay',  plugin_dir_url( __FILE__ ) . 'assets/sold-overlay.css' );

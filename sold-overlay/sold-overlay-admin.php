@@ -16,6 +16,9 @@ function sold_overlay_admin_page() {
     // Read in existing option value from database
     $opt_val = get_option( $opt_name );
     $shade = get_option('sold-overlay-shade');
+    $show_marker = get_option('sold_overlay_marker');
+    $show_overlay = get_option('sold_overlay_show');
+    
 
     // See if the user has posted us some information
     // If they did, this hidden field will be set to 'Y'
@@ -23,10 +26,14 @@ function sold_overlay_admin_page() {
         // Read their posted value
         $opt_val = $_POST[ 'sold_overlay_text'];
         $shade = $_POST['sold-overlay-shade'];
+        $show_marker = isset($_POST['sold_overlay_marker']);
+        $show_overlay = isset($_POST['sold_overlay_show']);
 
         // Save the posted value in the database
         update_option( 'sold_overlay_text', $opt_val );
         update_option('sold-overlay-shade',$shade);
+        update_option('sold_overlay_marker',$show_marker);
+        update_option('sold_overlay_show',$show_overlay);
 
         // Put a "settings saved" message on the screen
 
@@ -51,6 +58,12 @@ function sold_overlay_admin_page() {
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
+
+<p>
+    Overlay out of stock items: <input type="checkbox" id="sold_overlay_show" name="sold_overlay_show" value="Yes" <?php if($show_overlay){echo 'checked';}?>>
+</p>
+
+
 <p><?php _e("Sold Text:", 'sold-overlay-menu' ); ?> 
 <input type="text" name='sold_overlay_text' value="<?php echo $opt_val; ?>" size="20">
 </p><hr />
@@ -62,6 +75,10 @@ function sold_overlay_admin_page() {
   <input type="radio" name="sold-overlay-shade" value="dark"
     <?php if (isset($shade) && $shade=="dark") echo "checked";?>
   > Dark
+</p>
+
+<p>
+    Show marker above price: <input type="checkbox" id="sold_overlay_marker" name="sold_overlay_marker" value="Yes"  <?php if($show_marker){echo 'checked';}?>>
 </p>
 
 <p class="submit">
