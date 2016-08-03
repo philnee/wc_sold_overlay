@@ -8,6 +8,7 @@
     Author URI: http://plugins.philneedham.com
     */
 
+
     
     include( plugin_dir_path( __FILE__ ) . 'sold-overlay-admin.php');
     defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
