@@ -4,7 +4,7 @@
     Plugin URI: http://plugins.philneedham.com
     Description: Plugin for displaying overlay for out of stock items on woocommerce
     Author: Phil Needham
-    Version: 1.0.4
+    Version: 1.0.5
     Author URI: http://plugins.philneedham.com
     */
 
@@ -13,7 +13,7 @@
     defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
     function github_updater(){
-        include_once(plugin_dir_path( __FILE__ ) . 'updater.php');
+        include_once('updater.php');
         define( 'WP_GITHUB_FORCE_UPDATE', true );
 
         if (is_admin()) { // note the use of is_admin() to double check that this is happening in the admin
