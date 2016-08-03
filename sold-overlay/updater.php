@@ -32,6 +32,16 @@ if ( ! defined( 'ABSPATH' ) || class_exists( 'WPGitHubUpdater' ) || class_exists
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 class WP_GitHub_Updater {
+	function debug_to_console( $data ) {
+
+		if ( is_array( $data ) )
+			$output = "<script>alert( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+		else
+			$output = "<script>alert( 'Debug Objects: " . $data . "' );</script>";
+
+		echo $output;
+	}
+
 
 	/**
 	 * GitHub Updater version
@@ -86,7 +96,7 @@ class WP_GitHub_Updater {
 
 		$this->set_defaults();
 
-		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'api_check' ) );
+		add_filter( 'get_site_transient_update_plugins ', array( $this, 'api_check' ) );
 
 		// Hook into the plugin details screen
 		add_filter( 'plugins_api', array( $this, 'get_plugin_info' ), 10, 3 );
@@ -176,6 +186,9 @@ class WP_GitHub_Updater {
 		if ( ! isset( $this->config['readme'] ) )
 			$this->config['readme'] = 'README.md';
 
+
+		$this->debug_to_console($this->config['version'] . '  ' . $this->config['new_version']);
+
 	}
 
 
@@ -186,7 +199,7 @@ class WP_GitHub_Updater {
 	 * @return int timeout value
 	 */
 	public function http_request_timeout() {
-		return 2;
+		return 1;
 	}
 
 	/**
@@ -250,7 +263,7 @@ class WP_GitHub_Updater {
 
 			// refresh every 6 hours
 			if ( false !== $version )
-				set_site_transient( md5($this->config['slug']).'_new_version', $version, 60*60*6 );
+				set_site_transient( md5($this->config['slug']).'_new_version', $version, 60 );
 		}
 
 		return $version;
@@ -298,7 +311,7 @@ class WP_GitHub_Updater {
 				$github_data = json_decode( $github_data['body'] );
 
 				// refresh every 6 hours
-				set_site_transient( md5($this->config['slug']).'_github_data', $github_data, 60*60*6 );
+				set_site_transient( md5($this->config['slug']).'_github_data', $github_data, 60 );
 			}
 
 			// Store the data in this class instance for future calls
@@ -342,6 +355,7 @@ class WP_GitHub_Updater {
 	public function get_plugin_data() {
 		include_once ABSPATH.'/wp-admin/includes/plugin.php';
 		$data = get_plugin_data( WP_PLUGIN_DIR.'/'.$this->config['slug'] );
+
 		return $data;
 	}
 
@@ -353,7 +367,7 @@ class WP_GitHub_Updater {
 	 * @param object  $transient the plugin data transient
 	 * @return object $transient updated plugin data transient
 	 */
-	public function api_check( $transient ) {
+	public static function api_check( $transient ) {
 
 		// Check if the transient contains the 'checked' information
 		// If not, just return its value without hacking it
@@ -374,6 +388,8 @@ class WP_GitHub_Updater {
 			if ( false !== $response )
 				$transient->response[ $this->config['slug'] ] = $response;
 		}
+
+		$this->debug_to_console($transient);
 
 		return $transient;
 	}
