@@ -4,7 +4,7 @@
     Plugin URI: http://plugins.philneedham.com
     Description: Plugin for displaying overlay for out of stock items on woocommerce
     Author: Phil Needham
-    Version: 1.0.2
+    Version: 1.0.3
     Author URI: http://plugins.philneedham.com
     */
 
@@ -17,10 +17,10 @@
         $config = array(
             'slug' => plugin_basename(__FILE__), // this is the slug of your plugin
             'proper_folder_name' => 'sold-overlay', // this is the name of the folder your plugin lives in
-            'api_url' => 'https://api.github.com/repos/philnee/wc-sold-overlay', // the GitHub API url of your GitHub repo
-            'raw_url' => 'https://raw.github.com/philnee/wc-sold-overlay/master', // the GitHub raw url of your GitHub repo
-            'github_url' => 'https://github.com/philnee/wc-sold-overlay', // the GitHub url of your GitHub repo
-            'zip_url' => 'https://github.com/philnee/wc-sold-overlay/zipball/master', // the zip url of the GitHub repo
+            'api_url' => 'https://api.github.com/repos/philnee/wc_sold_overlay', // the GitHub API url of your GitHub repo
+            'raw_url' => 'https://raw.github.com/philnee/wc_sold_overlay/master', // the GitHub raw url of your GitHub repo
+            'github_url' => 'https://github.com/philnee/wc_sold_overlay', // the GitHub url of your GitHub repo
+            'zip_url' => 'https://github.com/philnee/wc_sold_overlay/zipball/master', // the zip url of the GitHub repo
             'sslverify' => true, // whether WP should check the validity of the SSL cert when getting an update, see https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/2 and https://github.com/jkudish/WordPress-GitHub-Plugin-Updater/issues/4 for details
             'requires' => '4.5', // which version of WordPress does your plugin require?
             'tested' => '4.5.3', // which version of WordPress is your plugin tested up to?
