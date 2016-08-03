@@ -24,7 +24,7 @@ function sold_overlay_admin_page() {
     // If they did, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
         // Read their posted value
-        $opt_val = $_POST[ 'sold_overlay_text'];
+        $opt_val = sanitize_text_field($_POST[ 'sold_overlay_text']);
         $shade = $_POST['sold-overlay-shade'];
         $show_marker = isset($_POST['sold_overlay_marker']);
         $show_overlay = isset($_POST['sold_overlay_show']);

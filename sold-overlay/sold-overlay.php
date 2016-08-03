@@ -30,7 +30,7 @@
         if (! $product->is_in_stock() && $show_overlay) {
             echo '<div class="sold-overlay after"><p class="sold-text">';
                 if($text != '')
-                    {echo $text;} 
+                    {echo esc_html($text);} 
                 else
                     { echo 'Out Of Stock';};
             echo '</p></div></div>';
@@ -45,7 +45,7 @@
 
         if($show_marker && !$product->is_in_stock()){
             echo '<div class="sold-marker">';
-            echo $marker_text;
+            echo esc_html($marker_text);
             echo '</div>';
         };
     }
