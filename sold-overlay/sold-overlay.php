@@ -6,7 +6,7 @@
     Plugin URI: http://plugins.philneedham.com
     Description: Plugin for displaying overlay for out of stock items on woocommerce
     Author: Phil Needham
-    Version: 1.0
+    Version: 1.0.1
     Author URI: http://plugins.philneedham.com
     */
 
